@@ -199,6 +199,25 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, type: 'spring' }}
           >
+
+            {/* School Name — prominent at the very top */}
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mb-4"
+            >
+              <p className="text-xs sm:text-sm font-black uppercase tracking-[0.25em] text-sky-500 mb-1">
+                🏫 Welcome to
+              </p>
+              <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-[2.75rem] text-gradient-day leading-tight">
+                Roots &amp; Wings School
+              </h2>
+              <p className="text-xs sm:text-sm text-gray-500 font-semibold mt-1">
+                Qazi Street, Saharanpur, Uttar Pradesh
+              </p>
+            </motion.div>
+
             {/* Badge */}
             <motion.div
               initial={{ scale: 0 }}
