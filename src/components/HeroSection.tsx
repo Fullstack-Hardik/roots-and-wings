@@ -200,23 +200,154 @@ const HeroSection = () => {
             transition={{ duration: 0.8, type: 'spring' }}
           >
 
-            {/* School Name — prominent at the very top */}
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="mb-4"
-            >
-              <p className="text-xs sm:text-sm font-black uppercase tracking-[0.25em] text-sky-500 mb-1">
-                🏫 Welcome to
-              </p>
-              <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-[2.75rem] text-gradient-day leading-tight">
-                Roots &amp; Wings School
-              </h2>
-              <p className="text-xs sm:text-sm text-gray-500 font-semibold mt-1">
-                Qazi Street, Saharanpur, Uttar Pradesh
-              </p>
-            </motion.div>
+            {/* ===== FLASHY SCHOOL NAME BANNER ===== */}
+            <div className="mb-6 relative">
+
+              {/* Orbiting sparkle stars around the name */}
+              {[0, 60, 120, 180, 240, 300].map((deg, si) => (
+                <motion.div
+                  key={si}
+                  className="absolute pointer-events-none"
+                  style={{ top: '50%', left: '50%', transformOrigin: '0 0' }}
+                  animate={{ rotate: [deg, deg + 360] }}
+                  transition={{ repeat: Infinity, duration: 6 + si * 0.4, ease: 'linear' }}
+                >
+                  <div style={{ transform: `rotate(0deg) translateX(${90 + si * 8}px) rotate(0deg)` }}>
+                    <svg width="14" height="14" viewBox="0 0 14 14">
+                      <polygon points="7,0.5 8.5,5 13.5,5 9.5,8 11,12.5 7,10 3,12.5 4.5,8 0.5,5 5.5,5"
+                        fill={['#fbbf24','#f472b6','#60a5fa','#34d399','#a78bfa','#fb923c'][si]} />
+                    </svg>
+                  </div>
+                </motion.div>
+              ))}
+
+              {/* Animated SVG Pencil — left of name */}
+              <motion.div
+                className="absolute -left-2 sm:left-0 top-1/2 -translate-y-1/2 hidden sm:block"
+                animate={{ rotate: [-8, 8, -8], y: [0, -5, 0] }}
+                transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
+              >
+                <svg width="36" height="36" viewBox="0 0 36 36">
+                  {/* Pencil body */}
+                  <rect x="14" y="4" width="8" height="22" rx="2" fill="#fbbf24" />
+                  {/* Eraser */}
+                  <rect x="14" y="2" width="8" height="5" rx="2" fill="#f9a8d4" />
+                  <rect x="14" y="6" width="8" height="2" fill="#fb923c" opacity="0.5" />
+                  {/* Tip base */}
+                  <polygon points="14,26 22,26 18,34" fill="#fed7aa" />
+                  {/* Lead tip */}
+                  <polygon points="16.5,30 19.5,30 18,34" fill="#374151" />
+                  {/* Shine */}
+                  <rect x="16" y="6" width="2.5" height="12" rx="1" fill="rgba(255,255,255,0.5)" />
+                </svg>
+              </motion.div>
+
+              {/* Animated SVG Open Book — right of name */}
+              <motion.div
+                className="absolute -right-2 sm:right-0 top-1/2 -translate-y-1/2 hidden sm:block"
+                animate={{ rotate: [5, -5, 5], y: [0, -6, 0] }}
+                transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut', delay: 0.5 }}
+              >
+                <svg width="38" height="34" viewBox="0 0 38 34">
+                  <defs>
+                    <linearGradient id="bookL" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0%" stopColor="#60a5fa" /><stop offset="100%" stopColor="#818cf8" />
+                    </linearGradient>
+                    <linearGradient id="bookR" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0%" stopColor="#a78bfa" /><stop offset="100%" stopColor="#ec4899" />
+                    </linearGradient>
+                  </defs>
+                  <path d="M19,6 C14,4 4,8 2,12 L2,30 C4,26 14,22 19,24 Z" fill="url(#bookL)" />
+                  <path d="M19,6 C24,4 34,8 36,12 L36,30 C34,26 24,22 19,24 Z" fill="url(#bookR)" />
+                  <line x1="19" y1="5" x2="19" y2="25" stroke="#1e1b4b" strokeWidth="2" />
+                  {[13,18,23].map(y => <line key={y} x1="5" y1={y} x2="16" y2={y-1} stroke="rgba(255,255,255,0.4)" strokeWidth="1.2" />)}
+                  {[13,18,23].map(y => <line key={y} x1="22" y1={y} x2="33" y2={y-1} stroke="rgba(255,255,255,0.4)" strokeWidth="1.2" />)}
+                  <ellipse cx="10" cy="10" rx="4" ry="2" fill="rgba(255,255,255,0.25)" />
+                </svg>
+              </motion.div>
+
+              {/* "Welcome to" pill */}
+              <motion.p
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="text-[11px] sm:text-xs font-black uppercase tracking-[0.3em] text-sky-500 mb-2 flex items-center gap-1.5"
+              >
+                <motion.span animate={{ rotate: [0, 10, -10, 0] }} transition={{ repeat: Infinity, duration: 2.5 }}>🏫</motion.span>
+                Welcome to
+              </motion.p>
+
+              {/* SCHOOL NAME — letter by letter stagger + rainbow shimmer */}
+              <div className="relative inline-block">
+                {/* Glow pulse ring behind text */}
+                <motion.div
+                  className="absolute inset-0 rounded-2xl -z-10 blur-xl"
+                  animate={{ opacity: [0.3, 0.7, 0.3], scale: [0.95, 1.05, 0.95] }}
+                  transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
+                  style={{ background: 'linear-gradient(135deg, #0ea5e9, #8b5cf6, #ec4899)' }}
+                />
+
+                <h2 className="font-heading font-black leading-none flex flex-wrap gap-x-3 gap-y-1">
+                  {['Roots', '&', 'Wings', 'School'].map((word, wi) => (
+                    <span key={wi} className="inline-flex">
+                      {word.split('').map((char, ci) => (
+                        <motion.span
+                          key={ci}
+                          initial={{ opacity: 0, y: 20, scale: 0.5 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          transition={{ delay: wi * 0.15 + ci * 0.04, type: 'spring', stiffness: 260 }}
+                          className="text-3xl sm:text-4xl lg:text-5xl inline-block"
+                          style={{
+                            background: `linear-gradient(135deg, ${
+                              ['#0ea5e9, #7c3aed', '#f59e0b, #ef4444', '#10b981, #06b6d4', '#ec4899, #8b5cf6'][wi % 4]
+                            })`,
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text',
+                            filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.15))',
+                          }}
+                        >
+                          {char}
+                        </motion.span>
+                      ))}
+                    </span>
+                  ))}
+                </h2>
+
+                {/* Shimmer sweep overlay */}
+                <motion.div
+                  className="absolute inset-0 pointer-events-none rounded-xl"
+                  animate={{ x: ['-100%', '200%'] }}
+                  transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut', repeatDelay: 1 }}
+                  style={{ background: 'linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.35) 50%, transparent 60%)' }}
+                />
+              </div>
+
+              {/* Floating mini confetti */}
+              {['🌟', '✨', '⭐', '💫'].map((em, ei) => (
+                <motion.span
+                  key={ei}
+                  className="absolute text-base pointer-events-none"
+                  style={{ top: `${[-20, -25, -15, -22][ei]}px`, left: `${[10, 35, 60, 80][ei]}%` }}
+                  animate={{ y: [0, -10, 0], rotate: [0, 20, -20, 0], scale: [1, 1.3, 1] }}
+                  transition={{ repeat: Infinity, duration: 2.5 + ei * 0.4, ease: 'easeInOut', delay: ei * 0.3 }}
+                >
+                  {em}
+                </motion.span>
+              ))}
+
+              {/* Location pill */}
+              <motion.div
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.8 }}
+                className="inline-flex items-center gap-1.5 mt-3 bg-gradient-to-r from-sky-50 to-violet-50 border border-sky-200 rounded-full px-3 py-1"
+              >
+                <span className="text-xs">📍</span>
+                <span className="text-xs font-bold text-gray-600">Qazi Street, Saharanpur, Uttar Pradesh</span>
+              </motion.div>
+            </div>
+            {/* ===== END SCHOOL NAME BANNER ===== */}
 
             {/* Badge */}
             <motion.div
