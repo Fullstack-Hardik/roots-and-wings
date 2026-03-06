@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
-import { ShieldCheck, MonitorPlay, Palette, Library, TreeDeciduous, Bus, Coffee, Wifi } from 'lucide-react';
+import { ShieldCheck, MonitorPlay, Palette, Library, TreeDeciduous, Bus } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 // 3D Beach Ball SVG

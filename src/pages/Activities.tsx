@@ -31,7 +31,7 @@ const activities = [
   { name: 'Book Week', date: 'March 22', category: 'Learning', emoji: '📚', color: 'from-indigo-400 to-blue-600', desc: 'Story reading sessions, character parades, and library activities.', bg: 'bg-indigo-50' },
 ];
 
-const categories = ['All', 'Sports', 'Creative', 'STEM', 'Cultural', 'Events', 'Wellness', 'Learning'];
+
 
 export default function Activities() {
   return (
