@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.rootsandwings.edu.in/sitemap.xml
+
+Disallow: /node_modules/
+Disallow: /.git/

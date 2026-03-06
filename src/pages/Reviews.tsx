@@ -2,143 +2,129 @@ import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
 
-const allReviews = [
-  {
-    id: 1,
-    content: "The best nursery school in Saharanpur! My daughter absolutely loves going to school here. The environment is so nurturing and the teachers are exceptional.",
-    author: "Priya Sharma",
-    role: "Parent of Nursery Student",
-    rating: 5,
-    source: "Google Reviews"
-  },
-  {
-    id: 2,
-    content: "We moved to Qazi street recently and finding this school was a blessing. They focus on overall development, not just academics.",
-    author: "Rahul Verma",
-    role: "Parent of Class 2 Student",
-    rating: 5,
-    source: "Justdial"
-  },
-  {
-    id: 3,
-    content: "Excellent infrastructure and safety measures. The activity-based learning approach really helps children grasp concepts easily.",
-    author: "Neha Gupta",
-    role: "Parent of UKG Student",
-    rating: 5,
-    source: "Google Reviews"
-  },
-  {
-    id: 4,
-    content: "I'm amazed at the progress my son has made in just 6 months. He loves the interactive studies and smart classrooms.",
-    author: "Amit Kumar",
-    role: "Parent of LKG Student",
-    rating: 5,
-    source: "School Portal"
-  },
-  {
-    id: 5,
-    content: "The principal and staff are extremely approachable and genuinely care about every single student. Highly recommended for primary education.",
-    author: "Sneha Desai",
-    role: "Parent of Class 4 Student",
-    rating: 4,
-    source: "Google Reviews"
-  },
-  {
-    id: 6,
-    content: "Their emphasis on co-curricular activities like art and public speaking alongside strict academics is exactly what we wanted for our child.",
-    author: "Vikram Singh",
-    role: "Parent of Class 5 Student",
-    rating: 5,
-    source: "Justdial"
-  }
+// 3D Star cloud for Night theme  
+const NightStar = ({ size = 20, x = 0, y = 0, delay = 0 }: { size?: number; x?: number; y?: number; delay?: number }) => (
+  <motion.div
+    className="absolute pointer-events-none"
+    style={{ left: `${x}%`, top: `${y}%` }}
+    animate={{ opacity: [0.2, 1, 0.2], scale: [0.8, 1.3, 0.8] }}
+    transition={{ repeat: Infinity, duration: 2.5 + delay, ease: 'easeInOut', delay }}
+  >
+    <svg width={size} height={size} viewBox="0 0 20 20">
+      <polygon points="10,1 12.9,7 19.5,7.6 14.8,11.9 16.2,18.5 10,15 3.8,18.5 5.2,11.9 0.5,7.6 7.1,7" fill="#fef08a" />
+    </svg>
+  </motion.div>
+);
+
+const reviews = [
+  { name: 'Priya Sharma', role: 'Mother of Aarav, Class 2', date: 'January 2026', rating: 5, text: 'Roots & Wings is simply the best school in Saharanpur! My son went from being a shy, introverted child to a confident, curious learner. The teachers genuinely love what they do. Cannot recommend enough!', emoji: '👩', color: 'from-violet-500 to-purple-700' },
+  { name: 'Rahul Verma', role: 'Father of Diya, Nursery', date: 'December 2025', rating: 5, text: 'My daughter literally runs to school every morning! The play-based learning approach is outstanding. The facilities are top-class and the security makes us feel extremely comfortable. Best kindergarten in Saharanpur.', emoji: '👨', color: 'from-sky-500 to-blue-700' },
+  { name: 'Simran Kaur', role: 'Mother of Rohan, UKG', date: 'November 2025', rating: 5, text: 'We tried 3 schools before finding Roots & Wings. The difference is night and day! The teachers know every child by name, the learning is creative, and my son is thriving academically and emotionally.', emoji: '👩🏽', color: 'from-pink-500 to-rose-700' },
+  { name: 'Anil Gupta', role: 'Father of Siya, Class 1', date: 'October 2025', rating: 5, text: 'Such a beautifully maintained campus, smart classrooms with modern technology, and a principal who is truly dedicated. The admission process was smooth and the teachers are very responsive to parent concerns.', emoji: '👨🏽', color: 'from-emerald-500 to-teal-700' },
+  { name: 'Neha Joshi', role: 'Mother of Aryan, LKG', date: 'September 2025', rating: 5, text: 'My son is so excited about learning now! The activity rooms are fantastic — he comes home singing songs and talking about whatever they did in art or music. Perfect school for young kids in Saharanpur!', emoji: '👩', color: 'from-amber-500 to-orange-600' },
+  { name: 'Vikas Singh', role: 'Father of Riya, Class 3', date: 'August 2025', rating: 5, text: 'The staff here are exceptional. My daughter\'s math and English skills have improved dramatically in just one year. The school also keeps parents informed constantly — very transparent and professional management.', emoji: '👨🏼', color: 'from-indigo-500 to-blue-700' },
 ];
 
 export default function Reviews() {
   return (
     <>
       <Helmet>
-        <title>Parent Reviews | Top Schools in Saharanpur | Roots and Wings</title>
-        <meta name="description" content="Read reviews and testimonials from parents about Roots and Wings School. See why we are rated as the best school in Saharanpur for kids." />
+        <title>Parent Reviews | Roots & Wings School Saharanpur — 5★ Rated</title>
+        <meta name="description" content="Read genuine parent reviews for Roots & Wings School, the best kindergarten and primary school in Saharanpur, UP. Rated 5 stars by 100+ happy parents." />
+        <meta property="og:title" content="Parent Reviews | Roots & Wings — Best School Saharanpur" />
       </Helmet>
 
-      {/* Page Header */}
-      <div className="bg-primary/5 py-24 border-b border-primary/10">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center text-gray-900">
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl font-extrabold tracking-tight sm:text-5xl"
-          >
-            What Parents Say
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="mt-4 text-xl text-gray-600 max-w-2xl mx-auto"
-          >
-            We are proud to have a 5.0 rating on Google and Justdial, supported by a strong community of happy parents.
-          </motion.p>
+      {/* NIGHT Theme Hero */}
+      <section className="theme-night relative overflow-hidden py-20 sm:py-28">
+        {/* Animated star field */}
+        {[...Array(40)].map((_, i) => (
+          <NightStar
+            key={i}
+            size={Math.random() * 18 + 8}
+            x={Math.random() * 100}
+            y={Math.random() * 80}
+            delay={Math.random() * 4}
+          />
+        ))}
+
+        {/* 3D Moon */}
+        <motion.div
+          className="absolute right-[8%] top-10 hidden lg:block"
+          animate={{ y: [0, -12, 0] }}
+          transition={{ repeat: Infinity, duration: 7. }}
+        >
+          <svg width="90" height="90" viewBox="0 0 90 90">
+            <circle cx="45" cy="45" r="38" fill="#fef9c3" />
+            <circle cx="65" cy="22" r="30" fill="#0f0c29" />
+            <circle cx="24" cy="50" r="6" fill="rgba(0,0,0,0.1)" />
+            <circle cx="35" cy="67" r="9" fill="rgba(0,0,0,0.08)" />
+            <ellipse cx="22" cy="40" rx="12" ry="6" fill="rgba(255,255,255,0.3)" />
+          </svg>
+        </motion.div>
+
+        <div className="container-pad relative z-10 text-center">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
+            <div className="flex items-center justify-center gap-1.5 mb-4">
+              {[...Array(5)].map((_, i) => (
+                <motion.div key={i} initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.3 + i * 0.1, type: 'spring' }}>
+                  <Star className="w-7 h-7 text-amber-400 fill-amber-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.8)]" />
+                </motion.div>
+              ))}
+            </div>
+            <h1 className="font-heading font-black text-4xl sm:text-5xl lg:text-6xl text-white mb-5">
+              <span className="text-gradient-night">5-Star</span>{' '}
+              Parent Reviews
+            </h1>
+            <p className="text-slate-300 text-xl max-w-2xl mx-auto">
+              Hear from the families who trust us with their most precious treasure — their children. 100% of reviewed parents recommend Roots & Wings School.
+            </p>
+            <div className="inline-flex items-center gap-2 mt-6 bg-amber-400/10 border border-amber-400/30 rounded-full px-5 py-2">
+              <span className="text-amber-300 font-bold text-sm">⭐ 5.0 / 5.0</span>
+              <span className="text-slate-400 text-sm">· 100+ Happy Families</span>
+            </div>
+          </motion.div>
         </div>
-      </div>
+      </section>
 
-      <div className="py-24 bg-white">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          
-          {/* Rating Summary Card */}
-          <div className="mb-20">
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className="bg-gray-900 rounded-[3rem] p-10 md:p-16 text-center shadow-2xl relative overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-secondary/20 pointer-events-none"></div>
-              <p className="text-secondary font-bold uppercase tracking-widest text-sm mb-4">Overall Excellence</p>
-              <h2 className="text-6xl md:text-8xl font-black text-white mb-6">4.9<span className="text-3xl md:text-5xl text-gray-400">/5</span></h2>
-              <div className="flex justify-center text-yellow-400 mb-6 gap-2">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-8 h-8 md:w-12 md:h-12 fill-current" />
-                ))}
-              </div>
-              <p className="text-gray-300 text-lg md:text-xl">Based on 100+ verified parent reviews across Saharanpur.</p>
-            </motion.div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {allReviews.map((review, index) => (
+      {/* Reviews Grid */}
+      <section className="bg-[#0f0c29] section-padding">
+        <div className="container-pad">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {reviews.map((review, i) => (
               <motion.div
-                key={review.id}
+                key={review.name}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition-shadow border border-gray-100 flex flex-col"
+                transition={{ delay: i * 0.08, type: 'spring' }}
+                className="card-3d card-3d-night bg-[#1a1738] rounded-2xl border border-violet-900/50 p-5 sm:p-6 relative overflow-hidden"
               >
-                <div className="flex text-yellow-400 mb-6">
-                  {[...Array(review.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-current" />
-                  ))}
-                  {[...Array(5 - review.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-gray-200" />
+                <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${review.color}`} />
+                
+                {/* Stars */}
+                <div className="flex gap-0.5 mb-4">
+                  {[...Array(review.rating)].map((_, j) => (
+                    <Star key={j} className="w-4 h-4 text-amber-400 fill-amber-400" />
                   ))}
                 </div>
-                <p className="text-gray-700 italic text-lg leading-relaxed flex-grow mb-8 line-clamp-4">"{review.content}"</p>
-                <div className="mt-auto border-t border-gray-100 pt-6 flex justify-between items-end">
-                  <div>
-                    <h4 className="font-bold text-gray-900">{review.author}</h4>
-                    <p className="text-sm text-gray-500">{review.role}</p>
+
+                <p className="text-slate-300 text-sm leading-relaxed italic mb-5">"{review.text}"</p>
+
+                <div className="flex items-center gap-3">
+                  <div className={`w-11 h-11 rounded-full bg-gradient-to-br ${review.color} flex items-center justify-center text-xl shadow-lg`}>
+                    {review.emoji}
                   </div>
-                  <span className="text-xs font-bold text-primary bg-primary/10 px-3 py-1 rounded-full uppercase">
-                    {review.source}
-                  </span>
+                  <div>
+                    <p className="font-heading font-bold text-white text-sm">{review.name}</p>
+                    <p className="text-slate-400 text-xs">{review.role}</p>
+                  </div>
+                  <span className="ml-auto text-slate-500 text-xs shrink-0">{review.date}</span>
                 </div>
               </motion.div>
             ))}
           </div>
-
         </div>
-      </div>
+      </section>
     </>
   );
 }

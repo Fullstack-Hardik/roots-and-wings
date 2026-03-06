@@ -6,74 +6,254 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
-
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 199 89% 48%; /* A nice sky blue */
+    --primary: 199 89% 48%;
     --primary-foreground: 210 40% 98%;
-
-    --secondary: 48 96% 53%; /* Soft playful yellow */
+    --secondary: 48 96% 53%;
     --secondary-foreground: 222.2 47.4% 11.2%;
-
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 346 87% 61%; /* Coral pink */
+    --accent: 346 87% 61%;
     --accent-foreground: 210 40% 98%;
-
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 199 89% 48%;
-
-    --radius: 1.5rem; /* Playful rounded corners */
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 199 89% 48%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 48 96% 53%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 346 87% 61%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 199 89% 48%;
+    --radius: 1.5rem;
   }
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
+  * { @apply border-border; }
+  html { scroll-behavior: smooth; }
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground;
+    font-family: 'Nunito', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold tracking-tight text-gray-900 dark:text-gray-100;
+    font-family: 'Poppins', sans-serif;
+    @apply font-bold tracking-tight;
   }
 }
+
+/* =================== THEME BACKGROUNDS =================== */
+
+/* DAY theme - Home, Contact */
+.theme-day {
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 30%, #f0f9ff 60%, #fef9c3 100%);
+}
+
+/* SPRING theme - About, Classes, Teachers */
+.theme-spring {
+  background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 30%, #f0fdf4 70%, #dcfce7 100%);
+}
+
+/* SUMMER theme - Facilities, Activities */
+.theme-summer {
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 30%, #fed7aa 60%, #fde68a 100%);
+}
+
+/* RAINY theme - Gallery, Parent Guide */
+.theme-rainy {
+  background: linear-gradient(135deg, #1e3a5f 0%, #1e3a8a 40%, #312e81 100%);
+  color: #e2e8f0;
+}
+
+/* NIGHT theme - Blogs, Reviews */
+.theme-night {
+  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  color: #f1f5f9;
+}
+
+/* =================== 3D CARD EFFECTS =================== */
+.card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+  will-change: transform;
+}
+.card-3d:hover {
+  transform: translateY(-8px) rotateX(5deg) rotateY(-3deg) scale(1.02);
+  box-shadow: 0 25px 60px -12px rgba(0,0,0,0.25);
+}
+.card-3d-spring:hover {
+  box-shadow: 0 25px 60px -12px rgba(236,72,153,0.3);
+}
+.card-3d-summer:hover {
+  box-shadow: 0 25px 60px -12px rgba(245,158,11,0.3);
+}
+.card-3d-night:hover {
+  box-shadow: 0 25px 60px -12px rgba(139,92,246,0.4);
+}
+
+/* =================== GLASSMORPHISM =================== */
+.glass {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+.glass-dark {
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+.glass-white {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* =================== GLOW EFFECTS =================== */
+.glow-primary { box-shadow: 0 0 20px rgba(14, 165, 233, 0.4); }
+.glow-pink { box-shadow: 0 0 20px rgba(236, 72, 153, 0.5); }
+.glow-yellow { box-shadow: 0 0 20px rgba(250, 204, 21, 0.5); }
+.glow-purple { box-shadow: 0 0 30px rgba(139, 92, 246, 0.6); }
+
+/* =================== TEXT GRADIENTS =================== */
+.text-gradient-day {
+  background: linear-gradient(135deg, #0284c7, #7c3aed, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.text-gradient-spring {
+  background: linear-gradient(135deg, #16a34a, #ec4899, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.text-gradient-summer {
+  background: linear-gradient(135deg, #f59e0b, #ef4444, #f97316);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.text-gradient-night {
+  background: linear-gradient(135deg, #a78bfa, #60a5fa, #f9a8d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.text-gradient-rainy {
+  background: linear-gradient(135deg, #93c5fd, #a5f3fc, #c4b5fd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* =================== ANIMATIONS =================== */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-12px) rotate(2deg); }
+  66% { transform: translateY(-6px) rotate(-1deg); }
+}
+@keyframes floatX {
+  0%, 100% { transform: translateX(0px); }
+  50% { transform: translateX(15px); }
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes rain {
+  0% { transform: translateY(-100px) translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(100vh) translateX(-20px); opacity: 0; }
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+@keyframes bloom {
+  0% { transform: scale(0) rotate(-45deg); opacity: 0; }
+  60% { transform: scale(1.2) rotate(5deg); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 10px rgba(14,165,233,0.3); }
+  50% { box-shadow: 0 0 30px rgba(14,165,233,0.7), 0 0 60px rgba(14,165,233,0.3); }
+}
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes morph {
+  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+}
+
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-floatX { animation: floatX 5s ease-in-out infinite; }
+.animate-spin-slow { animation: spin-slow 20s linear infinite; }
+.animate-shimmer { animation: shimmer 3s linear infinite; }
+.animate-twinkle { animation: twinkle 3s ease-in-out infinite; }
+.animate-bloom { animation: bloom 1s ease-out forwards; }
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+.animate-morph { animation: morph 8s ease-in-out infinite; }
+
+/* =================== RAIN DROPS =================== */
+.rain-drops {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+.rain-drop {
+  position: absolute;
+  width: 2px;
+  border-radius: 50px;
+  background: linear-gradient(to bottom, transparent, rgba(147, 197, 253, 0.6));
+  animation: rain linear infinite;
+}
+
+/* =================== STAR FIELD =================== */
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  animation: twinkle ease-in-out infinite;
+}
+
+/* =================== SCROLLBAR =================== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: linear-gradient(#0ea5e9, #7c3aed); border-radius: 3px; }
+
+/* =================== CUSTOM BUTTON =================== */
+.btn-primary {
+  @apply inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-white transition-all duration-300;
+  background: linear-gradient(135deg, #0ea5e9, #7c3aed);
+  box-shadow: 0 4px 20px rgba(14, 165, 233, 0.4);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(14, 165, 233, 0.6);
+}
+.btn-secondary {
+  @apply inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold transition-all duration-300;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+}
+
+/* =================== SECTION UTILITY =================== */
+.section-padding { @apply py-16 sm:py-20 lg:py-24; }
+.container-pad { @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8; }

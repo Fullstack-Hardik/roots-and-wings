@@ -1,149 +1,229 @@
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
-import { Calendar, User, ArrowRight } from 'lucide-react';
+import { Calendar, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-export default function Blogs() {
-  const blogs = [
-    {
-      id: "benefits-of-early-education",
-      title: "Benefits of Early Education: Why Kindergarten Matters",
-      excerpt: "Discover how early childhood education lays the foundation for lifelong learning, social development, and cognitive skills. The first five years are crucial for brain development.",
-      image: "https://images.unsplash.com/photo-1588075592446-265fd1e6e76f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      date: "Mar 15, 2024",
-      author: "Dr. Sarah Johnson",
-      category: "Education Insights"
-    },
-    {
-      id: "child-development-tips",
-      title: "Child Development Tips for Parents at Home",
-      excerpt: "Practical and fun ways to encourage your child's learning and creativity outside of school hours. Simple daily activities can significantly boost your child's cognitive abilities.",
-      image: "https://images.unsplash.com/photo-1603354350317-6f7aaa5911c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      date: "Mar 10, 2024",
-      author: "Elena Rodriguez",
-      category: "Parenting Guide"
-    },
-    {
-      id: "play-based-learning",
-      title: "The Importance of Play-Based Learning",
-      excerpt: "Why play is the most natural and effective way for young children to understand the world around them. It builds problem-solving skills, social competence, and emotional resilience.",
-      image: "https://images.unsplash.com/photo-1596464716127-f2a82984de30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      date: "Mar 05, 2024",
-      author: "Michael Chang",
-      category: "Teaching Methodology"
-    },
-    {
-      id: "screen-time-management",
-      title: "Managing Screen Time for Young Children",
-      excerpt: "Striking the right balance between digital learning and physical play in the modern age. Expert guidelines and practical tips for parents navigating the digital landscape.",
-      image: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      date: "Feb 28, 2024",
-      author: "Dr. Sarah Johnson",
-      category: "Child Health"
-    },
-    {
-      id: "healthy-habits",
-      title: "Building Healthy Eating Habits Early",
-      excerpt: "Nutrition plays a vital role in cognitive development. Learn how to encourage your kids to make healthy food choices and enjoy nutritious meals together.",
-      image: "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      date: "Feb 15, 2024",
-      author: "Anita Sharma",
-      category: "Parenting Guide"
-    },
-    {
-      id: "separation-anxiety",
-      title: "How to Help Your Child Overcome Separation Anxiety",
-      excerpt: "Starting school can be tough. We share proven strategies to make the morning drop-off tear-free and help your child build independence and confidence.",
-      image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      date: "Jan 20, 2024",
-      author: "Elena Rodriguez",
-      category: "Emotional Well-being"
-    }
-  ];
+// Star SVG
+const Star3D = ({ size = 20 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 20 20">
+    <defs>
+      <radialGradient id="starGrad">
+        <stop offset="0%" stopColor="#fef9c3" />
+        <stop offset="100%" stopColor="#fbbf24" />
+      </radialGradient>
+    </defs>
+    <polygon points="10,1 12.9,7 19.5,7.6 14.8,11.9 16.2,18.5 10,15 3.8,18.5 5.2,11.9 0.5,7.6 7.1,7"
+      fill="url(#starGrad)" />
+  </svg>
+);
 
+const blogPosts = [
+  {
+    title: 'Top Schools in Saharanpur: A Parent\'s Complete Guide 2025',
+    excerpt: 'Choosing the right school is one of the biggest decisions for your child\'s future. This comprehensive guide covers what to look for in the best schools in Saharanpur — from curriculum, safety, and facilities to fee structure and admission process.',
+    date: 'February 20, 2026',
+    category: 'Local Guide',
+    readTime: '8 min read',
+    emoji: '🏫',
+    tags: ['Saharanpur', 'School Guide', 'Admissions'],
+    color: 'from-sky-400 to-blue-500',
+  },
+  {
+    title: 'How to Choose the Best Kindergarten for Your Child in 2025',
+    excerpt: 'From curriculum design and teacher qualifications to campus safety and playful learning — here\'s the definitive checklist every Saharanpur parent should use when selecting a kindergarten.',
+    date: 'February 10, 2026',
+    category: 'Parenting Tips',
+    readTime: '6 min read',
+    emoji: '👶',
+    tags: ['Kindergarten', 'Parenting', 'Early Education'],
+    color: 'from-pink-400 to-rose-500',
+  },
+  {
+    title: 'The Importance of Early Childhood Education: What Research Says',
+    excerpt: 'The first 6 years of a child\'s life are the most formative. Researchers worldwide agree that high-quality early education is the single biggest predictor of long-term academic success and social well-being.',
+    date: 'January 28, 2026',
+    category: 'Education',
+    readTime: '7 min read',
+    emoji: '🧠',
+    tags: ['Research', 'Early Education', 'Child Development'],
+    color: 'from-violet-400 to-purple-600',
+  },
+  {
+    title: 'Benefits of Kindergarten Learning: Play-Based vs. Academic',
+    excerpt: 'Should your child\'s kindergarten be purely academic or play-based? Discover why leading education experts favor a balanced approach — and how Roots & Wings integrates both seamlessly.',
+    date: 'January 15, 2026',
+    category: 'Learning',
+    readTime: '5 min read',
+    emoji: '🎮',
+    tags: ['Kindergarten', 'Play-Based Learning', 'Curriculum'],
+    color: 'from-emerald-400 to-teal-600',
+  },
+  {
+    title: 'School Admission Process in Saharanpur: A Step-by-Step Guide',
+    excerpt: 'Confused about the school admission process in Saharanpur? From finding the right school to submitting documents and attending orientation — we walk you through every step.',
+    date: 'December 20, 2025',
+    category: 'Admissions',
+    readTime: '5 min read',
+    emoji: '📋',
+    tags: ['Admissions', 'Saharanpur', 'Guide'],
+    color: 'from-amber-400 to-orange-500',
+  },
+  {
+    title: 'Activities That Boost Your Child\'s Brain Development at Home',
+    excerpt: 'Fun, simple activities you can do at home to stimulate your child\'s cognitive, emotional, and motor development — recommended by our expert teachers at Roots & Wings.',
+    date: 'December 5, 2025',
+    category: 'Parenting Tips',
+    readTime: '4 min read',
+    emoji: '🧩',
+    tags: ['Activities', 'Brain Development', 'Parenting'],
+    color: 'from-indigo-400 to-blue-600',
+  },
+];
+
+export default function Blogs() {
   return (
     <>
       <Helmet>
-        <title>Educational Blogs & Articles | Roots and Wings School</title>
-        <meta name="description" content="Read expert articles on early education, child development, and parenting tips from the educators at Roots and Wings School." />
-        <meta property="og:title" content="Educational Blogs & Articles | Roots and Wings School" />
+        <title>Education Blog | Roots & Wings School Saharanpur</title>
+        <meta name="description" content="School blog by Roots & Wings, Saharanpur — expert articles on kindergarten education, top schools, parenting tips, school admissions, and child development in Saharanpur, UP." />
+        <meta property="og:title" content="Education Blog | Roots & Wings School Saharanpur" />
       </Helmet>
 
-      {/* Page Header */}
-      <div className="bg-primary/5 py-24 border-b border-primary/10">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center">
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl"
-          >
-            School Blog
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="mt-4 text-xl text-gray-600 max-w-2xl mx-auto"
-          >
-            Insights, tips, and resources for our parent community.
-          </motion.p>
-        </div>
-      </div>
+      {/* NIGHT Theme Hero */}
+      <section className="theme-night relative overflow-hidden py-20 sm:py-28">
+        {/* Twinkling Stars */}
+        {[...Array(50)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute"
+            style={{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              width: `${Math.random() * 3 + 1}px`,
+              height: `${Math.random() * 3 + 1}px`,
+              borderRadius: '50%',
+              background: 'white',
+            }}
+            animate={{ opacity: [0.1, 1, 0.1], scale: [0.8, 1.3, 0.8] }}
+            transition={{ repeat: Infinity, duration: Math.random() * 3 + 2, delay: Math.random() * 4 }}
+          />
+        ))}
 
-      <div className="py-24 bg-white">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {blogs.map((blog, index) => (
-              <motion.article 
-                key={blog.id}
+        {/* Moon 3D SVG */}
+        <motion.div
+          className="absolute right-[8%] top-10 hidden lg:block"
+          animate={{ y: [0, -15, 0] }}
+          transition={{ repeat: Infinity, duration: 8, ease: 'easeInOut' }}
+        >
+          <svg width="100" height="100" viewBox="0 0 100 100">
+            <defs>
+              <radialGradient id="moonGrad" cx="35%" cy="35%">
+                <stop offset="0%" stopColor="#fef9c3" />
+                <stop offset="100%" stopColor="#fbbf24" />
+              </radialGradient>
+            </defs>
+            <circle cx="50" cy="50" r="40" fill="url(#moonGrad)" />
+            <circle cx="72" cy="28" r="28" fill="#1e1b4b" />
+            {/* Craters */}
+            <circle cx="28" cy="45" r="5" fill="rgba(0,0,0,0.15)" />
+            <circle cx="38" cy="65" r="7" fill="rgba(0,0,0,0.12)" />
+            <circle cx="20" cy="30" r="3" fill="rgba(0,0,0,0.1)" />
+            <ellipse cx="25" cy="35" rx="10" ry="5" fill="rgba(255,255,255,0.3)" />
+          </svg>
+        </motion.div>
+
+        {/* Shooting star */}
+        <motion.div
+          className="absolute h-0.5 w-24 bg-gradient-to-r from-white to-transparent rounded-full"
+          style={{ top: '18%', left: '-5%', rotate: '-15deg' }}
+          animate={{ x: ['0vw', '110vw'], opacity: [0, 1, 0] }}
+          transition={{ repeat: Infinity, duration: 4, delay: 2, ease: 'linear', repeatDelay: 8 }}
+        />
+
+        <div className="container-pad relative z-10 text-center">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
+            <span className="inline-block bg-violet-500/20 text-violet-300 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5 border border-violet-400/30">
+              🌙 Education Blog
+            </span>
+            <h1 className="font-heading font-black text-4xl sm:text-5xl lg:text-6xl text-white mb-5">
+              Our{' '}
+              <span className="text-gradient-night">Knowledge Hub</span>
+            </h1>
+            <p className="text-slate-300 text-xl max-w-2xl mx-auto">
+              Expert articles on parenting, early education, school admissions, and child development — curated by our teachers at Roots & Wings Saharanpur.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Blog Grid */}
+      <section className="section-padding bg-[#0f0c29]">
+        <div className="container-pad">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+            {blogPosts.map((post, i) => (
+              <motion.article
+                key={post.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group flex flex-col bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-xl transition-shadow"
+                transition={{ delay: i * 0.08, type: 'spring' }}
+                className="card-3d card-3d-night rounded-2xl overflow-hidden bg-[#1a1738] border border-violet-900/50 group cursor-pointer"
               >
-                <div className="h-56 overflow-hidden relative">
-                  <img 
-                    src={blog.image} 
-                    alt={blog.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <span className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold text-primary">
-                      {blog.category}
-                    </span>
-                  </div>
+                {/* Top Banner */}
+                <div className={`bg-gradient-to-r ${post.color} h-24 flex items-center justify-center text-5xl relative overflow-hidden`}>
+                  <motion.span
+                    className="group-hover:scale-125 transition-transform duration-500 inline-block"
+                  >{post.emoji}</motion.span>
+                  {/* Stars overlay */}
+                  {[...Array(5)].map((_, j) => (
+                    <motion.div
+                      key={j}
+                      className="absolute"
+                      style={{ top: `${20 + j * 15}%`, left: `${15 + j * 18}%` }}
+                      animate={{ opacity: [0, 1, 0] }}
+                      transition={{ repeat: Infinity, duration: 2, delay: j * 0.4 }}
+                    >
+                      <Star3D size={12} />
+                    </motion.div>
+                  ))}
                 </div>
-                <div className="p-6 flex flex-col flex-grow">
-                  <div className="flex items-center gap-4 text-xs text-gray-500 mb-4">
-                    <div className="flex items-center gap-1">
-                      <Calendar className="w-4 h-4" />
-                      <span>{blog.date}</span>
+
+                <div className="p-5">
+                  {/* Meta */}
+                  <div className="flex items-center gap-2 flex-wrap mb-3">
+                    <span className={`text-xs font-bold px-2.5 py-1 rounded-full bg-gradient-to-r ${post.color} text-white`}>
+                      {post.category}
+                    </span>
+                    <div className="flex items-center gap-1 text-slate-400 text-xs">
+                      <Calendar className="w-3 h-3" />
+                      {post.date}
                     </div>
-                    <div className="flex items-center gap-1">
-                      <User className="w-4 h-4" />
-                      <span>{blog.author}</span>
-                    </div>
+                    <span className="text-slate-500 text-xs">· {post.readTime}</span>
                   </div>
-                  <h2 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary transition-colors">
-                    <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+
+                  <h2 className="font-heading font-bold text-base text-white mb-2 leading-snug group-hover:text-violet-300 transition-colors">
+                    {post.title}
                   </h2>
-                  <p className="text-gray-600 mb-6 flex-grow line-clamp-3">
-                    {blog.excerpt}
-                  </p>
-                  <Link 
-                    to={`/blogs/${blog.id}`}
-                    className="inline-flex items-center text-primary font-semibold hover:text-primary/80 transition-colors gap-2 group-hover:gap-3"
-                  >
-                    Read full article <ArrowRight className="w-4 h-4" />
+                  <p className="text-slate-400 text-sm leading-relaxed line-clamp-3 mb-4">{post.excerpt}</p>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-1.5 mb-4">
+                    {post.tags.map((tag) => (
+                      <span key={tag} className="text-[10px] font-semibold text-slate-400 bg-slate-800 px-2 py-0.5 rounded-full border border-slate-700">
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <Link to="/blogs" className="flex items-center gap-1.5 text-sm font-bold text-violet-400 group-hover:gap-3 transition-all">
+                    Read Article <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
               </motion.article>
             ))}
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 }

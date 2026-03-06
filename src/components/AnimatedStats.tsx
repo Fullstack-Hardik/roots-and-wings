@@ -1,66 +1,69 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef, useEffect, useState } from 'react';
-
-const Counter = ({ from, to, duration = 2, suffix = "" }: { from: number, to: number, duration?: number, suffix?: string }) => {
-  const nodeRef = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(nodeRef, { once: true, margin: "-100px" });
-  const [count, setCount] = useState(from);
-
-  useEffect(() => {
-    if (isInView) {
-      let startTimestamp: number | null = null;
-      const step = (timestamp: number) => {
-        if (!startTimestamp) startTimestamp = timestamp;
-        const progress = Math.min((timestamp - startTimestamp) / (duration * 1000), 1);
-        setCount(Math.floor(progress * (to - from) + from));
-        if (progress < 1) {
-          window.requestAnimationFrame(step);
-        }
-      };
-      window.requestAnimationFrame(step);
-    }
-  }, [isInView, from, to, duration]);
-
-  return <span ref={nodeRef}>{count}{suffix}</span>;
-}
+import { useEffect, useRef, useState } from 'react';
+import { motion, useInView } from 'framer-motion';
 
 const stats = [
-  { label: "Happy Students", value: 500, suffix: "+", color: "text-blue-500", icon: "👨‍🎓" },
-  { label: "Expert Teachers", value: 40, suffix: "+", color: "text-pink-500", icon: "👩‍🏫" },
-  { label: "Years of Excellence", value: 10, suffix: "+", color: "text-yellow-500", icon: "⭐" },
-  { label: "Awards Won", value: 15, suffix: "", color: "text-green-500", icon: "🏆" }
+  { value: 500, suffix: '+', label: 'Happy Students', icon: '👦', color: 'from-sky-400 to-blue-600', shadow: 'rgba(14,165,233,0.4)' },
+  { value: 20, suffix: '+', label: 'Expert Teachers', icon: '👩‍🏫', color: 'from-violet-400 to-purple-600', shadow: 'rgba(124,58,237,0.4)' },
+  { value: 10, suffix: '+', label: 'Years of Trust', icon: '🏆', color: 'from-amber-400 to-orange-500', shadow: 'rgba(245,158,11,0.4)' },
+  { value: 5, suffix: '★', label: 'Parent Rating', icon: '❤️', color: 'from-pink-400 to-rose-600', shadow: 'rgba(236,72,153,0.4)' },
 ];
 
-export default function AnimatedStats() {
-  return (
-    <section className="py-24 bg-white relative overflow-hidden">
-      {/* Cartoon Background Elements */}
-      <div className="absolute inset-0 opacity-10 pointer-events-none">
-         <div className="absolute top-10 left-[10%] w-24 h-24 bg-primary rounded-full blur-3xl"></div>
-         <div className="absolute bottom-10 right-[10%] w-32 h-32 bg-secondary rounded-full blur-3xl"></div>
-      </div>
+function Counter({ value, suffix }: { value: number; suffix: string }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true });
 
-      <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          {stats.map((stat, index) => (
+  useEffect(() => {
+    if (!inView) return;
+    let start = 0;
+    const duration = 1800;
+    const step = Math.ceil(value / (duration / 16));
+    const timer = setInterval(() => {
+      start = Math.min(start + step, value);
+      setCount(start);
+      if (start >= value) clearInterval(timer);
+    }, 16);
+    return () => clearInterval(timer);
+  }, [inView, value]);
+
+  return (
+    <span ref={ref} className="font-heading font-black text-4xl sm:text-5xl text-white leading-none">
+      {count}{suffix}
+    </span>
+  );
+}
+
+const AnimatedStats = () => {
+  return (
+    <section className="py-12 bg-white relative z-10 -mt-1">
+      <div className="container-pad">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="text-center p-6 bg-gray-50 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300"
+              transition={{ delay: i * 0.1, type: 'spring', stiffness: 120 }}
+              className="card-3d relative rounded-2xl sm:rounded-3xl overflow-hidden cursor-default"
+              style={{ background: `linear-gradient(135deg, hsl(from ${stat.color} s l / 1) 0%, transparent 100%)` }}
             >
-              <div className="text-4xl mb-4">{stat.icon}</div>
-              <div className={`text-4xl sm:text-5xl font-extrabold mb-2 ${stat.color}`}>
-                <Counter from={0} to={stat.value} suffix={stat.suffix} />
+              <div className={`bg-gradient-to-br ${stat.color} p-5 sm:p-6 rounded-2xl sm:rounded-3xl h-full`}
+                style={{ boxShadow: `0 10px 30px ${stat.shadow}` }}>
+                <div className="text-3xl sm:text-4xl mb-3">{stat.icon}</div>
+                <Counter value={stat.value} suffix={stat.suffix} />
+                <p className="text-white/80 text-xs sm:text-sm font-semibold mt-1">{stat.label}</p>
+
+                {/* Decorative orb */}
+                <div className="absolute top-3 right-3 w-12 h-12 rounded-full bg-white/10 animate-morph" />
+                <div className="absolute -bottom-4 -right-4 w-20 h-20 rounded-full bg-white/10" />
               </div>
-              <div className="text-gray-600 font-bold">{stat.label}</div>
             </motion.div>
           ))}
         </div>
       </div>
     </section>
   );
-}
+};
+
+export default AnimatedStats;

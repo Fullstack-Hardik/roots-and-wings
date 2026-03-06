@@ -1,96 +1,92 @@
 import { useState } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const faqs = [
   {
-    question: "What is the admission procedure?",
-    answer: "Admissions are open throughout the year subject to availability. You can fill out the enquiry form online or visit our Qazi Street campus. Following the enquiry, we schedule an interactive session with the parents and the child."
+    q: 'What are the admission requirements for kindergarten?',
+    a: 'Children aged 3–6 years are eligible for Nursery to UKG. Required documents: Birth Certificate, 4 passport photos, parent\'s ID proof, and address proof. No entrance test for nursery-level admissions.',
   },
   {
-    question: "What are the school timings?",
-    answer: "Our school operates from 8:00 AM to 2:00 PM from Monday to Saturday. Playgroup and Nursery timings are from 8:30 AM to 12:30 PM."
+    q: 'What age groups does Roots & Wings School cater to?',
+    a: 'We offer programs for children from age 2 (Playgroup) to 11 years (Class 5) — covering Playgroup, Nursery, LKG, UKG, and Class 1 to 5.',
   },
   {
-    question: "Is transport facility available?",
-    answer: "Yes, we provide safe and secure air-conditioned transport facilities covering most areas of Saharanpur, including GPS tracking for parents."
+    q: 'Is the school affiliated with any education board?',
+    a: 'Yes, our curriculum is aligned with CBSE guidelines, ensuring students are well-prepared for future schooling. We follow a play-way methodology for early grades.',
   },
   {
-    question: "What is the student-teacher ratio?",
-    answer: "To ensure personalized attention, we maintain a strict 15:1 student-teacher ratio in kindergarten and 25:1 in primary classes."
+    q: 'What safety measures are in place on campus?',
+    a: 'We have 24/7 CCTV surveillance, verified staff, secure entry/exit gates, and GPS-tracked school buses. Child safety is our highest priority at Roots & Wings.',
   },
   {
-    question: "How do you ensure campus safety?",
-    answer: "The entire campus is covered by 24/7 CCTV surveillance. We have trained security guards, and no child is handed over to unverified individuals."
-  }
+    q: 'Are school transport facilities available?',
+    a: 'Yes, we offer safe GPS-tracked bus service covering major areas in Saharanpur. Please contact our office for route details and availability near your location.',
+  },
+  {
+    q: 'How can I apply for admission to Roots & Wings School?',
+    a: 'Visit our Contact page and fill out the admission inquiry form, or call us directly at +91-74095-41444. Our team will guide you through the process within 24 hours.',
+  },
 ];
 
-export default function FaqSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": faqs.map(faq => ({
-      "@type": "Question",
-      "name": faq.question,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": faq.answer
-      }
-    }))
-  };
+const FaqSection = () => {
+  const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="py-24 bg-primary/5">
-      {/* Inject FAQ Schema specifically when this component mounts */}
-      <Helmet>
-        <script type="application/ld+json">
-          {JSON.stringify(faqSchema)}
-        </script>
-      </Helmet>
-      
-      <div className="mx-auto max-w-3xl px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Frequently Asked Questions
+    <section className="section-padding bg-gradient-to-br from-sky-50 to-violet-50/50">
+      <div className="container-pad">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-12"
+        >
+          <span className="inline-block bg-sky-100 text-sky-700 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-4">
+            FAQ — Admissions
+          </span>
+          <h2 className="font-heading font-black text-3xl sm:text-4xl text-gray-900 mb-4">
+            Frequently Asked{' '}
+            <span className="text-gradient-day">Questions</span>
           </h2>
-          <p className="mt-4 text-lg text-gray-600">
-            Find answers to the most common questions about admissions, facilities, and our educational approach.
+          <p className="text-gray-600 max-w-xl mx-auto">
+            Everything you need to know about admissions, programs, and campus life at Roots & Wings.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="space-y-4">
-          {faqs.map((faq, index) => (
+        <div className="max-w-3xl mx-auto space-y-3">
+          {faqs.map((faq, i) => (
             <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
+              key={i}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+              transition={{ delay: i * 0.05 }}
+              className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow"
             >
               <button
-                onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
-                aria-expanded={openIndex === index}
+                onClick={() => setOpen(open === i ? null : i)}
+                className="w-full flex items-center justify-between gap-4 px-5 sm:px-6 py-4 sm:py-5 text-left"
+                aria-expanded={open === i}
               >
-                <span className="font-semibold text-gray-900 text-lg">{faq.question}</span>
-                <ChevronDown
-                  className={`w-5 h-5 text-gray-500 transition-transform duration-300 ${openIndex === index ? 'rotate-180' : ''}`}
-                />
+                <span className="font-heading font-bold text-sm sm:text-base text-gray-900">{faq.q}</span>
+                <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${
+                  open === i ? 'bg-sky-500 text-white rotate-180' : 'bg-gray-100 text-gray-500'
+                }`}>
+                  <ChevronDown className="w-4 h-4" />
+                </div>
               </button>
               <AnimatePresence>
-                {openIndex === index && (
+                {open === i && (
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
+                    animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.25, ease: 'easeInOut' }}
+                    className="overflow-hidden"
                   >
-                    <div className="px-6 pb-5 text-gray-600 border-t border-gray-50 pt-4">
-                      {faq.answer}
+                    <div className="px-5 sm:px-6 pb-5 sm:pb-6 text-gray-600 text-sm leading-relaxed border-t border-gray-100 pt-3">
+                      {faq.a}
                     </div>
                   </motion.div>
                 )}
@@ -98,7 +94,21 @@ export default function FaqSection() {
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mt-10"
+        >
+          <p className="text-gray-500 text-sm mb-5">Still have questions? We're here to help!</p>
+          <Link to="/contact" className="btn-primary inline-flex">
+            📞 Contact Admissions Team
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
-}
+};
+
+export default FaqSection;

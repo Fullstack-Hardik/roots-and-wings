@@ -1,82 +1,154 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 
-const classesList = [
+const classes = [
   {
-    name: "Playgroup & Nursery",
-    age: "2.5 to 4 Years",
-    description: "Focus on sensory development, motor skills, and creative expression through play-way methods.",
-    image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-    color: "bg-pink-50 border-pink-100",
-    btnColor: "bg-pink-100 text-pink-700 hover:bg-pink-200"
+    name: 'Playgroup',
+    age: '2–3 Years',
+    emoji: '🧸',
+    description: 'A safe, warm introduction to school life through sensory play, rhymes, and story time.',
+    features: ['Sensory Play', 'Rhymes & Songs', 'Story Time'],
+    color: 'from-pink-400 to-rose-500',
+    lightBg: 'bg-pink-50',
+    border: 'border-pink-200',
+    badge: 'bg-pink-100 text-pink-700',
   },
   {
-    name: "LKG & UKG",
-    age: "4 to 6 Years",
-    description: "Building foundational literacy, numeracy, and pre-writing skills for essential development.",
-    image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-    color: "bg-blue-50 border-blue-100",
-    btnColor: "bg-blue-100 text-blue-700 hover:bg-blue-200"
+    name: 'Nursery',
+    age: '3–4 Years',
+    emoji: '🎨',
+    description: 'Creative and playful learning focused on colors, shapes, counting and social skills.',
+    features: ['Art & Craft', 'Counting & Colors', 'Social Skills'],
+    color: 'from-amber-400 to-orange-500',
+    lightBg: 'bg-amber-50',
+    border: 'border-amber-200',
+    badge: 'bg-amber-100 text-amber-700',
   },
   {
-    name: "Class 1 to 5",
-    age: "6 to 11 Years",
-    description: "Comprehensive primary education integrating holistic learning, critical thinking, and co-curriculars.",
-    image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-    color: "bg-green-50 border-green-100",
-    btnColor: "bg-green-100 text-green-700 hover:bg-green-200"
-  }
+    name: 'LKG',
+    age: '4–5 Years',
+    emoji: '📖',
+    description: 'Building foundations in language, math, and science through fun activities.',
+    features: ['Phonics & Reading', 'Basic Math', 'Science Explore'],
+    color: 'from-sky-400 to-blue-500',
+    lightBg: 'bg-sky-50',
+    border: 'border-sky-200',
+    badge: 'bg-sky-100 text-sky-700',
+  },
+  {
+    name: 'UKG',
+    age: '5–6 Years',
+    emoji: '🔬',
+    description: 'Advanced concepts in language, numeracy, and hands-on science experiments.',
+    features: ['Reading & Writing', 'Numeracy', 'Science Projects'],
+    color: 'from-violet-400 to-purple-600',
+    lightBg: 'bg-violet-50',
+    border: 'border-violet-200',
+    badge: 'bg-violet-100 text-violet-700',
+  },
+  {
+    name: 'Class 1–3',
+    age: '6–9 Years',
+    emoji: '✏️',
+    description: 'CBSE-aligned curriculum with a focus on conceptual clarity and creative thinking.',
+    features: ['English & Hindi', 'Mathematics', 'EVS & GK'],
+    color: 'from-emerald-400 to-teal-600',
+    lightBg: 'bg-emerald-50',
+    border: 'border-emerald-200',
+    badge: 'bg-emerald-100 text-emerald-700',
+  },
+  {
+    name: 'Class 4–5',
+    age: '9–11 Years',
+    emoji: '🚀',
+    description: 'Advanced primary schooling with project-based learning, debates, and critical thinking.',
+    features: ['STEM Projects', 'Debates', 'Critical Thinking'],
+    color: 'from-indigo-400 to-blue-700',
+    lightBg: 'bg-indigo-50',
+    border: 'border-indigo-200',
+    badge: 'bg-indigo-100 text-indigo-700',
+  },
 ];
 
 const ClassesPreview = () => {
   return (
-    <section className="py-24 bg-white">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Our Academic Programs
+    <section className="section-padding bg-white">
+      <div className="container-pad">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-12"
+        >
+          <span className="inline-block bg-sky-100 text-sky-700 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-4">
+            Our Programs
+          </span>
+          <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-gray-900 mb-4">
+            Classes &{' '}
+            <span className="text-gradient-day">Programs</span>
           </h2>
-          <p className="mt-4 text-lg text-gray-600">
-            As a leading kids learning school in Saharanpur, we offer diverse programs tailored to each developmental stage of your child.
+          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+            From Playgroup to Class 5, every stage is carefully designed to nurture your child's growth with joy and purpose.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {classesList.map((program, index) => (
+        {/* Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+          {classes.map((cls, i) => (
             <motion.div
-              key={program.name}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              key={cls.name}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`rounded-3xl border-2 overflow-hidden flex flex-col ${program.color}`}
+              transition={{ delay: i * 0.08, type: 'spring', stiffness: 100 }}
+              className={`card-3d relative rounded-2xl border ${cls.border} ${cls.lightBg} p-5 sm:p-6 group cursor-pointer overflow-hidden`}
             >
-              <div className="h-48 overflow-hidden">
-                <img
-                  src={program.image}
-                  alt={`${program.name} class students`}
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                  loading="lazy"
-                />
-              </div>
-              <div className="p-8 flex-grow flex flex-col">
-                <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-2xl font-bold text-gray-900">{program.name}</h3>
+              {/* Top Gradient Strip */}
+              <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${cls.color} rounded-t-2xl`} />
+
+              {/* Icon + Age Badge */}
+              <div className="flex items-start justify-between mb-4">
+                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${cls.color} flex items-center justify-center text-2xl shadow-lg`}>
+                  {cls.emoji}
                 </div>
-                <div className="inline-flex items-center px-3 py-1 rounded-full bg-white text-sm font-medium text-gray-800 self-start mb-4 shadow-sm border border-gray-100">
-                  {program.age}
-                </div>
-                <p className="text-gray-700 flex-grow mb-8">{program.description}</p>
-                <Link
-                  to="/classes"
-                  className={`mt-auto block text-center py-3 px-6 rounded-xl font-semibold transition-colors ${program.btnColor}`}
-                >
-                  Learn More
-                </Link>
+                <span className={`text-xs font-bold px-3 py-1 rounded-full ${cls.badge}`}>{cls.age}</span>
               </div>
+
+              <h3 className="font-heading font-black text-xl text-gray-900 mb-2">{cls.name}</h3>
+              <p className="text-gray-500 text-sm leading-relaxed mb-4">{cls.description}</p>
+
+              {/* Features */}
+              <div className="flex flex-wrap gap-1.5 mb-5">
+                {cls.features.map((f) => (
+                  <span key={f} className="text-xs font-semibold bg-white/80 text-gray-700 px-2.5 py-1 rounded-full border border-gray-200">
+                    {f}
+                  </span>
+                ))}
+              </div>
+
+              <Link
+                to="/classes"
+                className={`flex items-center gap-1.5 text-sm font-bold bg-gradient-to-r ${cls.color} bg-clip-text text-transparent group-hover:gap-3 transition-all`}
+              >
+                Learn More <ArrowRight className="w-4 h-4 text-current group-hover:translate-x-1 transition-transform" style={{ stroke: 'url(#grad)' }} />
+              </Link>
             </motion.div>
           ))}
         </div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mt-12"
+        >
+          <Link to="/contact" className="btn-primary inline-flex">
+            🎒 Apply for Admission Now
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

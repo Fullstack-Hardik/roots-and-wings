@@ -10,6 +10,8 @@ import Blogs from './pages/Blogs';
 import Contact from './pages/Contact';
 import ParentGuide from './pages/ParentGuide';
 import Reviews from './pages/Reviews';
+import Teachers from './pages/Teachers';
+import Activities from './pages/Activities';
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
           <Route path="parent-guide" element={<ParentGuide />} />
           <Route path="reviews" element={<Reviews />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="teachers" element={<Teachers />} />
+          <Route path="activities" element={<Activities />} />
         </Route>
       </Routes>
     </Router>
@@ -33,3 +37,4 @@ function App() {
 }
 
 export default App;
+
